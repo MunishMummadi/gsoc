@@ -547,3 +547,4 @@ I look forward to the opportunity to work with the Dora mentors and community on
 8. LeRobot Dataset: https://github.com/huggingface/lerobot
 9. 3D Printing Best Practices for Robotics: https://all3dp.com/2/3d-printed-robot-arm-simply-explained/
 10. Dataflow Programming for Robotics: https://ieeexplore.ieee.org/document/8594339
+11. Gemini 2.5 Pro: To understand and better draft the proposal
