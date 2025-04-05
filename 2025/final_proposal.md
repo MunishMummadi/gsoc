@@ -326,26 +326,27 @@ By the end of Phase 4, all project components will be finalized, thoroughly docu
 
 The project will span 12 weeks, aligned with the GSoC program timeline. Below is a detailed Gantt chart showing the project implementation timeline:
 
+
 | Task | Start Date | Duration | End Date |
 |------|------------|----------|----------|
-| <span style="color:#6A5ACD;font-weight:bold">**Community Bonding**</span> |  |  |  |
+| **Community Bonding** |  |  |  |
 | Setup & Requirements | 2025-05-01 | 14 days | 2025-05-14 |
-| <span style="color:#228B22;font-weight:bold">**Phase 1: Design & Prototyping**</span> |  |  |  |
+| **Phase 1: Design & Prototyping** |  |  |  |
 | Koch Arm Analysis | 2025-05-15 | 7 days | 2025-05-21 |
 | Design Modifications | 2025-05-22 | 7 days | 2025-05-28 |
 | 3D Printing & Assembly | 2025-05-29 | 7 days | 2025-06-04 |
-| <span style="color:#4169E1;font-weight:bold">**Phase 2: Mujoco Simulation**</span> |  |  |  |
+| **Phase 2: Mujoco Simulation** |  |  |  |
 | MJCF Model Development | 2025-06-05 | 7 days | 2025-06-11 |
 | Simulation Environment | 2025-06-12 | 7 days | 2025-06-18 |
 | Data Collection Pipeline | 2025-06-19 | 7 days | 2025-06-25 |
-| <span style="color:#FF8C00;font-weight:bold">**Phase 3: Dora Integration**</span> |  |  |  |
+| **Phase 3: Dora Integration** |  |  |  |
 | Driver Nodes | 2025-06-26 | 7 days | 2025-07-02 |
 | Data Collection Nodes | 2025-07-03 | 7 days | 2025-07-09 |
 | ARIO Format Integration | 2025-07-10 | 7 days | 2025-07-16 |
-| <span style="color:#B22222;font-weight:bold">**Phase 4: Documentation**</span> |  |  |  |
+| **Phase 4: Documentation** |  |  |  |
 | Assembly Guides | 2025-07-17 | 7 days | 2025-07-23 |
 | Tutorials & Examples | 2025-07-24 | 7 days | 2025-07-30 |
-| <span style="color:#008080;font-weight:bold">Final Review & Delivery</span> | 2025-07-31 | 7 days | 2025-08-06 |
+| Final Review & Delivery | 2025-07-31 | 7 days | 2025-08-06 |
 
 
 ### Week 1 (Community Bonding Period)
