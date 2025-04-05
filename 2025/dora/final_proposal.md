@@ -251,7 +251,7 @@ Storage solutions will be implemented to efficiently manage the potentially larg
 
 To ensure seamless integration between the physical robot and the Dora platform, I will develop driver nodes that handle the low-level communication with the Dynamixel servos. These drivers will abstract the hardware details, providing a clean interface for the higher-level data collection nodes.
 
-## Documentation and Deliverables {#documentation-and-deliverables}
+## Documentation and Tutorials
 
 Comprehensive documentation and tutorials are essential for the success and adoption of this project. I will create detailed, step-by-step guides that cover all aspects of the system, from hardware assembly to software configuration and data collection.
 
@@ -537,7 +537,7 @@ A sample dataset collected using the system will be prepared and shared with the
 
 The dataset will be thoroughly documented, including information about the collection process, data structure, and potential applications. It will be made freely available to the community, contributing to the growing ecosystem of open robotics datasets.
 
-## Conclusion {#conclusion}
+## Conclusion
 
 The Robot Data Collection Improvement project addresses a critical need in the robotics community: affordable and accessible tools for collecting high-quality robot data. By combining the Dora platform's powerful software capabilities with an optimized, low-cost robot arm design, this project will significantly lower the barrier to entry for robotics research and education.
 
@@ -551,7 +551,7 @@ By creating an affordable, accessible, and well-documented robot data collection
 
 I look forward to the opportunity to work with the Dora mentors and community on this exciting project, and I am confident that together we can create a valuable resource for the robotics community.
 
-## References {#references}
+## References
 
 1. Dora Platform Documentation: https://dora-rs.ai/
 2. Mujoco Physics Engine: https://mujoco.org/
