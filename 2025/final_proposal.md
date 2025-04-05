@@ -432,7 +432,7 @@ The majority of the project—including Dora node development, Mujoco simulation
 
 ### Hardware Implementation
 For the physical robot arm component, I have developed a remote-friendly approach:
-- I have access to a 3D printer at my university's engineering lab, allowing me to prototype and test the physical components
+- Currently i don't have access to a 3D printer. I believe we can plan something for this — sending the 3D files to a 3D printing service or to my mentor/lab(not sure)
 - I can leverage my mechanical engineering background to ensure designs are optimized for remote collaboration and testing
 - The modular nature of the design allows components to be tested independently before final assembly
 
@@ -521,33 +521,6 @@ A sample dataset collected using the system will be prepared and shared with the
 
 The dataset will be thoroughly documented, including information about the collection process, data structure, and potential applications. It will be made freely available to the community, contributing to the growing ecosystem of open robotics datasets.
 
-## Future Work and Sustainability
-
-While the GSoC project will deliver a complete and functional system, there are several areas for potential future development:
-
-### Hardware Enhancements
-
-- Integration with additional sensor types (e.g., force/torque sensors, tactile sensors)
-- Development of alternative end-effector designs for specific tasks
-- Exploration of different motor options for cost/performance optimization
-- Scaling the design for different size and payload requirements
-
-### Software Enhancements
-
-- Development of advanced data processing algorithms
-- Implementation of machine learning pipelines for data analysis
-- Integration with other simulation environments
-- Development of real-time control nodes based on collected data
-
-### Community Engagement
-
-- Organization of workshops and tutorials to promote adoption
-- Establishment of a community forum for knowledge sharing
-- Development of a contribution framework for community enhancements
-- Collaboration with educational institutions for curriculum integration
-
-The project will be designed with long-term sustainability in mind, with clear documentation, modular architecture, and open-source licensing to encourage community contributions and ongoing development.
-
 ## Conclusion
 
 The Robot Data Collection Improvement project addresses a critical need in the robotics community: affordable and accessible tools for collecting high-quality robot data. By combining the Dora platform's powerful software capabilities with an optimized, low-cost robot arm design, this project will significantly lower the barrier to entry for robotics research and education.
@@ -571,6 +544,6 @@ I look forward to the opportunity to work with the Dora mentors and community on
 5. Dynamixel Servo Documentation: https://emanual.robotis.com/docs/en/dxl/x/xl430-w250/
 6. Robot Operating System (ROS) Documentation: https://www.ros.org/
 7. Open-X Embodiment Dataset: https://github.com/google-deepmind/open_x_embodiment
-8. LeRobot Dataset: https://github.com/LeRobot/dataset
+8. LeRobot Dataset: https://github.com/huggingface/lerobot
 9. 3D Printing Best Practices for Robotics: https://all3dp.com/2/3d-printed-robot-arm-simply-explained/
 10. Dataflow Programming for Robotics: https://ieeexplore.ieee.org/document/8594339
