@@ -12,9 +12,8 @@
    - [Mujoco Simulation](#mujoco-simulation)
    - [Data Collection Pipeline](#data-collection-pipeline)
 7. [Implementation Plan and Timeline](#implementation-plan-and-timeline)
-8. [Documentation and Deliverables](#Comprehensive-Documentation-and-Tutorials)
-9. [Conclusion](#conclusion)
-10. [References](#references)
+8. [Conclusion](#conclusion)
+9. [References](#references)
 
 ## Personal Information
 - **Name:** Munish Mummadi
