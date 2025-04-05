@@ -21,13 +21,13 @@
 
 My name is Munish Mummadi, and I am currently pursuing a Master's degree in Computer Information Science at Saint Louis University, with an expected graduation date of May 2025. With a Bachelor's degree in Mechanical Engineering and practical experience in software engineering, I bring a unique interdisciplinary perspective to the Robot Data Collection Improvement project for Dora.
 
-As a software engineer with over two years of experience developing scalable web applications, I have cultivated expertise in Python, Golang, and JavaScript, along with proficiency in RESTful APIs, cloud services, and database management. My combined mechanical engineering background and software development skills equip me with the technical knowledge and problem-solving mindset necessary to tackle complex challenges in robotics data collection.
+As a software engineer with over two years of experience developing scalable web applications, I have cultivated expertise in Python, Golang, and JavaScript. My combined mechanical engineering background and software development skills equip me with the technical knowledge and problem-solving mindset necessary to tackle complex challenges in robotics data collection.
 
-## Mechanical Engineering Background and Relevance
+## Mechanical Engineering Background and Relevance 
 
 As a mechanical engineering graduate, I bring a unique perspective to this robotics data collection project that complements my software development skills. My mechanical engineering background provides me with several advantages that will be instrumental in successfully executing this project:
 
-1. **Understanding of Mechanical Systems**: My education in mechanical engineering has given me a deep understanding of the principles governing robotic mechanisms, including kinematics, dynamics, and structural analysis. This knowledge will be crucial when adapting the Koch robot arm design for data collection purposes, as I can make informed decisions about structural modifications, joint configurations, and load-bearing capabilities.
+1. **Understanding of Mechanical Systems**: My education in mechanical engineering has given me a some level of understanding of the principles governing robotic mechanisms, including kinematics, dynamics, and structural analysis. This knowledge will be crucial when adapting the Koch robot arm design for data collection purposes, as I can make informed decisions about structural modifications, joint configurations, and load-bearing capabilities.
 
 2. **3D Design and Manufacturing Knowledge**: Throughout my mechanical engineering curriculum, I gained extensive experience with CAD software and 3D printing technologies. I understand the design considerations necessary for creating parts that are both functional and manufacturable, including tolerances, material properties, and assembly constraints. This expertise will be invaluable when optimizing the robot arm components for 3D printing and ensuring they can be reliably reproduced by users with varying levels of equipment.
 
@@ -51,7 +51,7 @@ The Dora Robot Data Collection Improvement project represents an exciting opport
 
 Robot data collection is currently expensive and difficult to manage for several reasons:
 
-1. Commercial robotics platforms often come with prohibitive costs, limiting access for many researchers and educational institutions.
+1. Commercial robotics platforms often come with huge costs, limiting access for many researchers and educational institutions.
 2. Existing solutions frequently lack standardized data formats, making it challenging to share and compare results across different platforms.
 3. The integration between hardware and software components often requires specialized knowledge, creating additional barriers to entry.
 4. Documentation and tutorials for affordable robotics solutions are often fragmented or incomplete.
@@ -326,31 +326,27 @@ By the end of Phase 4, all project components will be finalized, thoroughly docu
 
 The project will span 12 weeks, aligned with the GSoC program timeline. Below is a detailed Gantt chart showing the project implementation timeline:
 
-```mermaid
-gantt
-    title Project Implementation Timeline
-    dateFormat  YYYY-MM-DD
-    section Community Bonding
-    Setup & Requirements    :a1, 2025-05-01, 14d
-    section Phase 1: Design & Prototyping
-    Koch Arm Analysis       :a2, 2025-05-15, 7d
-    Design Modifications    :a3, after a2, 7d
-    3D Printing & Assembly  :a4, after a3, 7d
-    section Phase 2: Mujoco Simulation
-    MJCF Model Development  :a5, after a4, 7d
-    Simulation Environment  :a6, after a5, 7d
-    Data Collection Pipeline:a7, after a6, 7d
-    section Phase 3: Dora Integration
-    Driver Nodes            :a8, after a7, 7d
-    Data Collection Nodes   :a9, after a8, 7d
-    ARIO Format Integration :a10, after a9, 7d
-    section Phase 4: Documentation
-    Assembly Guides         :a11, after a10, 7d
-    Tutorials & Examples    :a12, after a11, 7d
-    Final Review & Delivery :a13, after a12, 7d
-```
+| Task | Start Date | Duration | End Date |
+|------|------------|----------|----------|
+| <span style="color:#6A5ACD;font-weight:bold">**Community Bonding**</span> |  |  |  |
+| Setup & Requirements | 2025-05-01 | 14 days | 2025-05-14 |
+| <span style="color:#228B22;font-weight:bold">**Phase 1: Design & Prototyping**</span> |  |  |  |
+| Koch Arm Analysis | 2025-05-15 | 7 days | 2025-05-21 |
+| Design Modifications | 2025-05-22 | 7 days | 2025-05-28 |
+| 3D Printing & Assembly | 2025-05-29 | 7 days | 2025-06-04 |
+| <span style="color:#4169E1;font-weight:bold">**Phase 2: Mujoco Simulation**</span> |  |  |  |
+| MJCF Model Development | 2025-06-05 | 7 days | 2025-06-11 |
+| Simulation Environment | 2025-06-12 | 7 days | 2025-06-18 |
+| Data Collection Pipeline | 2025-06-19 | 7 days | 2025-06-25 |
+| <span style="color:#FF8C00;font-weight:bold">**Phase 3: Dora Integration**</span> |  |  |  |
+| Driver Nodes | 2025-06-26 | 7 days | 2025-07-02 |
+| Data Collection Nodes | 2025-07-03 | 7 days | 2025-07-09 |
+| ARIO Format Integration | 2025-07-10 | 7 days | 2025-07-16 |
+| <span style="color:#B22222;font-weight:bold">**Phase 4: Documentation**</span> |  |  |  |
+| Assembly Guides | 2025-07-17 | 7 days | 2025-07-23 |
+| Tutorials & Examples | 2025-07-24 | 7 days | 2025-07-30 |
+| <span style="color:#008080;font-weight:bold">Final Review & Delivery</span> | 2025-07-31 | 7 days | 2025-08-06 |
 
-Week-by-week breakdown of tasks and deliverables:
 
 ### Week 1 (Community Bonding Period)
 - Engage with mentors and the Dora community
