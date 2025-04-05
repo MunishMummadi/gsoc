@@ -3,8 +3,8 @@
 ## Personal Information
 - **Name:** Munish Mummadi
 - **Email:** mmummadi@slu.edu
-- **GitHub:** [GitHub Profile]
-- **LinkedIn:** [LinkedIn Profile]
+- **GitHub:** https://github.com/MunishMummadi
+- **LinkedIn:** https://www.linkedin.com/in/munishmummadi/
 - **University:** Saint Louis University
 - **Program:** Masters in Computer Information Science
 - **Expected Graduation:** May 2025
