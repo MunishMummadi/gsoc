@@ -25,6 +25,17 @@
 - **Expected Graduation:** May 2025
 - **Educational Background:** Bachelor's in Mechanical Engineering
 
+My name is Munish Mummadi, and I am currently pursuing a Master's degree in Computer Information Science at Saint Louis University, with an expected graduation date of May 2025. With a Bachelor's degree in Mechanical Engineering and practical experience in software engineering, I bring a unique interdisciplinary perspective to the Robot Data Collection Improvement project for Dora.
+
+As a software engineer with over two years of experience developing scalable web applications, I have cultivated expertise in Python, Golang, and JavaScript. I've also contributed several pull requests to the Dora repository, demonstrating my familiarity with the codebase:
+
+- [PR #862: change: dora/node-hub/README.md](https://github.com/dora-rs/dora/pull/862)
+- [PR #840: Related to dora-bot issue assignment](https://github.com/dora-rs/dora/pull/840) 
+- [PR #853: node-hub: Added dora-magma node](https://github.com/dora-rs/dora/pull/853)
+- [PR #911: node-hub: Add nvidia/Isaac-GR00T into dora](https://github.com/dora-rs/dora/pull/911)
+
+My combined mechanical engineering background and software development skills equip me with the technical knowledge and problem-solving mindset necessary to tackle complex challenges in robotics data collection.
+
 ## Project Information
 - **Project Title:** Robot Data Collection Improvement
 - **Organization:** Dora
