@@ -2,7 +2,7 @@
 
 ## Personal Information
 - **Name:** Munish Mummadi
-- **Email:** mmummadi@slu.edu
+- **Email:** moneymindedmunish1@gmail.com
 - **GitHub:** https://github.com/MunishMummadi
 - **LinkedIn:** https://www.linkedin.com/in/munishmummadi/
 - **University:** Saint Louis University
