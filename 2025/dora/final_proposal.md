@@ -12,7 +12,7 @@
    - [Mujoco Simulation](#mujoco-simulation)
    - [Data Collection Pipeline](#data-collection-pipeline)
 7. [Implementation Plan and Timeline](#implementation-plan-and-timeline)
-8. [Documentation and Deliverables](#documentation-and-deliverables)
+8. [Documentation and Deliverables](#Comprehensive-Documentation-and-Tutorials)
 9. [Conclusion](#conclusion)
 10. [References](#references)
 
