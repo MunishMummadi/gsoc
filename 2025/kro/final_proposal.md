@@ -15,9 +15,9 @@
 
 ## Personal Information
 - **Name:** Munish Mummadi
-- **Email:** mmummadi@slu.edu
-- **GitHub:** [GitHub Profile Link]
-- **LinkedIn:** [LinkedIn Profile Link]
+- **Email:** moneymindedmunish1@gmail.com
+- **GitHub:** https://github.com/MunishMummadi
+- **LinkedIn:** https://www.linkedin.com/in/munishmummadi/
 - **University:** Saint Louis University
 - **Degree:** Masters in Computer Information Science (Expected May 2025)
 
@@ -1383,7 +1383,7 @@ After the completion of the GSoC period, I plan to:
 
 1. Continue maintaining the performance and scale testing tools
 2. Work with the Kro community to implement key optimizations identified during the project
-3. Extend the framework to support new features as Kro evolves
+3. Extend the framework to support new features as Kro evolves(although it is way out of league for my skillset but i will try my best)
 4. Help integrate performance testing into Kro's CI/CD pipeline
 
 This project is designed to provide long-term value to the Kro project beyond the GSoC period, establishing a foundation for ongoing performance monitoring and optimization.
@@ -1461,7 +1461,7 @@ I have experience with collaborative development using Git, feature branching, a
 
 While my formal open source contributions have been limited, I have:
 
-- Contributed to the Servo web rendering engine during an internship, implementing CSS property support
+- Contributed to the Servo web rendering engine and dora-rs, implementing CSS property support & adding various nodes to dora based on new AI models
 - Participated in collaborative development using feature branching and pull requests
 - Followed open source development practices in my personal projects, including comprehensive documentation and test coverage
 
