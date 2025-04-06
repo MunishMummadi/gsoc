@@ -25,16 +25,6 @@
 - **Expected Graduation:** May 2025
 - **Educational Background:** Bachelor's in Mechanical Engineering
 
-My name is Munish Mummadi, and I am currently pursuing a Master's degree in Computer Information Science at Saint Louis University, with an expected graduation date of May 2025. With a Bachelor's degree in Mechanical Engineering and practical experience in software engineering, I bring a unique interdisciplinary perspective to the Robot Data Collection Improvement project for Dora.
-
-As a software engineer with over two years of experience developing scalable web applications, I have cultivated expertise in Python, Golang, and JavaScript. I've also contributed several pull requests to the Dora repository, demonstrating my familiarity with the codebase:
-
-- [PR #862: change: dora/node-hub/README.md](https://github.com/dora-rs/dora/pull/862)
-- [PR #840: Related to dora-bot issue assignment](https://github.com/dora-rs/dora/pull/840) 
-- [PR #853: node-hub: Added dora-magma node](https://github.com/dora-rs/dora/pull/853)
-- [PR #911: node-hub: Add nvidia/Isaac-GR00T into dora](https://github.com/dora-rs/dora/pull/911)
-
-My combined mechanical engineering background and software development skills equip me with the technical knowledge and problem-solving mindset necessary to tackle complex challenges in robotics data collection.
 
 ## Project Information
 - **Project Title:** Robot Data Collection Improvement
@@ -47,31 +37,38 @@ My combined mechanical engineering background and software development skills eq
 
 My name is Munish Mummadi, and I am currently pursuing a Master's degree in Computer Information Science at Saint Louis University, with an expected graduation date of May 2025. With a Bachelor's degree in Mechanical Engineering and practical experience in software engineering, I bring a unique interdisciplinary perspective to the Robot Data Collection Improvement project for Dora.
 
-As a software engineer with over two years of experience developing scalable web applications, I have cultivated expertise in Python, Golang, and JavaScript. My combined mechanical engineering background and software development skills equip me with the technical knowledge and problem-solving mindset necessary to tackle complex challenges in robotics data collection.
+As a software engineer with over two years of experience developing scalable web applications, I have gained of using Python, Golang, and JavaScript. I've also contributed several pull requests to the Dora repository, showcasing my familiarity with the codebase:
+
+- [PR #862: change: dora/node-hub/README.md](https://github.com/dora-rs/dora/pull/862)
+- [PR #840: Related to dora-bot issue assignment](https://github.com/dora-rs/dora/pull/840) 
+- [PR #853: node-hub: Added dora-magma node](https://github.com/dora-rs/dora/pull/853)
+- [PR #911: node-hub: Add nvidia/Isaac-GR00T into dora](https://github.com/dora-rs/dora/pull/911)
+
+My combined mechanical engineering background and software development skills equip me with the technical knowledge and problem-solving mindset necessary to tackle complex challenges in robotics data collection.
 
 ## Mechanical Engineering Background and Relevance 
 
 As a mechanical engineering graduate, I bring a unique perspective to this robotics data collection project that complements my software development skills. My mechanical engineering background provides me with several advantages that will be instrumental in successfully executing this project:
 
-1. **Understanding of Mechanical Systems**: My education in mechanical engineering has given me a some level of understanding of the principles governing robotic mechanisms, including kinematics, dynamics, and structural analysis. This knowledge will be crucial when adapting the Koch robot arm design for data collection purposes, as I can make informed decisions about structural modifications, joint configurations, and load-bearing capabilities.
+1. **Understanding of Mechanical Systems**: My education in mechanical engineering has given me a some level of understanding of how robotic mechanisms, including kinematics, dynamics, and structural analysis. This knowledge will be helpful when adapting the Koch robot arm design for data collection purposes.
 
-2. **3D Design and Manufacturing Knowledge**: Throughout my mechanical engineering curriculum, I gained extensive experience with CAD software and 3D printing technologies. I understand the design considerations necessary for creating parts that are both functional and manufacturable, including tolerances, material properties, and assembly constraints. I am little rusty with CAD software, but I am confident in my ability to learn and apply it effectively.
+2. **3D Design and Manufacturing Knowledge**: Throughout my mechanical engineering curriculum, I gained experience with CAD software and 3D printing technologies. I understand the design choices necessary for creating parts that are both functional and manufacturable, including tolerances, material properties, and assembly constraints. I am little rusty with CAD software, but I am confident in my ability to learn and apply it effectively.
 
-3. **Sensor Integration Experience**: My mechanical engineering background includes experience with various sensors and measurement systems, providing me with insights into optimal sensor placement, mounting considerations, and signal integrity. This knowledge will help me design effective mounting points for additional sensors on the robot arm, ensuring high-quality data collection without compromising the arm's functionality.
+3. **Sensor Integration Experience**: My mechanical engineering background includes experience with various sensors and measurement systems, providing me with insights into optimal sensor placement, mounting considerations, and signal integrity. This knowledge will help me design effective mounting points for additional sensors on the robot arm, ensuring high-quality data collection without any compromise on the arm's functionality.
 
-4. **Physical Simulation Understanding**: I am reading the docs to better understand the Mujoco physics engine. My education included courses on dynamics and simulation of mechanical systems(need to recap though), giving me foundational knowledge for working with the Mujoco physics engine. I understand the physical parameters that need to be accurately modeled, such as mass properties, friction coefficients, and joint constraints, which will help me create a more realistic simulation of the robot arm. 
+4. **Physical Simulation Understanding**:Currently, I am reading the docs to better understand the Mujoco physics engine. My education included courses on dynamics and simulation of mechanical systems(need to recap though), giving me foundational knowledge for working with the Mujoco physics engine. I understand the physical parameters that need to be accurately modeled, such as mass properties, friction coefficients, and joint constraints, which will help me create a more realistic simulation of the robot arm. 
 
 5. **Interdisciplinary Approach**: The combination of my mechanical engineering background and software development skills allows me to bridge the gap between hardware and software aspects of this project. I can effectively translate mechanical design requirements into software implementations and vice versa, ensuring a cohesive and well-integrated system.
 
-This interdisciplinary background makes me uniquely qualified to tackle the Robot Data Collection Improvement project, as it requires expertise in both mechanical design and software development. By leveraging my mechanical engineering knowledge alongside my programming skills, I can deliver a comprehensive solution that addresses both the hardware and software challenges of affordable robot data collection.
+This interdisciplinary background helps me to handle the Robot Data Collection Improvement project, as it requires knowledge in both mechanical design and software development. By leveraging my mechanical engineering knowledge alongside my programming skills, I can deliver a comprehensive solution that addresses both the hardware and software challenges of affordable robot data collection.
 
 ## Project Motivation
 
-The field of robotics is experiencing unprecedented growth, with applications spanning from industrial automation to healthcare and beyond. However, a significant barrier to innovation in this domain is the high cost and complexity associated with robot data collection. This challenge particularly affects researchers, students, and small organizations who lack access to expensive commercial robotics platforms but have valuable contributions to make to the field.
+The field of robotics is experiencing huge growth, with applications across domains from industrial automation to healthcare and beyond. However, a significant barrier to innovation in this domain is the high cost and complexity with robot data collection. This challenge particularly affects researchers, students, and small organizations who lack access to expensive commercial robotics platforms but have valuable contributions to make to the field.
 
-My interest in this project stems from a deep fascination with the intersection of software engineering and robotics. During my academic journey, I've been particularly drawn to projects that bridge theoretical concepts with practical applications. The opportunity to create an affordable, accessible robot kit specifically designed for data collection aligns perfectly with my belief that technological advancement should be democratized and made available to a wider audience.
+My interest in this project roots from a deep fascination with the mixture of both software engineering and robotics. During my academic journey, I've been particularly drawn to projects that bridge theoretical concepts with practical applications. The opportunity to create an affordable, accessible robot kit specifically designed for data collection aligns perfectly with my beliefs.
 
-The Dora Robot Data Collection Improvement project represents an exciting opportunity to address these challenges by creating an end-to-end solution that combines affordable hardware with powerful software capabilities. By leveraging open-source designs like the Koch robot arms and integrating them with the Dora platform, we can significantly lower the barrier to entry for robotics research and development.
+The Dora Robot Data Collection Improvement project represents an exciting opportunity to address these challenges by creating an end-to-end solution that combines affordable hardware with powerful software capabilities. By using open-source designs like the Koch robot arms and appending them with the Dora platform, we can try to lower the cost of entry for robotics research and development.
 
 ## Project Understanding
 
@@ -90,7 +87,7 @@ The project will involve designing and 3D printing robot components based on the
 
 ## System Architecture Overview
 
-The following diagram illustrates the high-level architecture of the proposed system, showing the relationships between the hardware layer, Dora platform, and simulation layer:
+The following diagram showcases the high-level architecture for the Dora Robot Data Collection Improvement project, showing the relationships between the hardware layer, Dora platform, and simulation layer:
 
 ```mermaid
 graph TD
@@ -138,13 +135,13 @@ Furthermore, the standardized dataset collected and shared through this project 
 
 ## Robot Design and 3D Printing
 
-The foundation of this project is the creation of an affordable robot kit specifically designed for data collection with the Dora platform. To achieve this, I will adapt the Koch robot arm design, which has gained popularity in the robotics community for its accessibility and effectiveness. The Koch design offers several advantages that make it ideal for this project: it costs approximately $250-430 depending on configuration, uses lightweight components, and is fully 3D-printable with commercially available parts.
+The main goal of this project is to create an affordable robot kit specifically designed for data collection with the Dora platform. To achieve this, I will adapt the Koch robot arm design, which has gained popularity in the robotics community for its accessibility and effectiveness. The Koch design offers several advantages that make it ideal for this project: it costs approximately $250-430 depending on configuration, uses lightweight components, and is fully 3D-printable with commercially available parts.
 
 The adaptation process will begin with a thorough analysis of the original Koch design, focusing on optimizing it for data collection purposes. This will involve several key considerations:
 
-First, I will evaluate the existing design files (STL and step files) to identify opportunities for improvement and customization. The current Koch design uses Dynamixel servo motors, with XL430 motors for the first two joints (providing greater strength) and XL330 motors for the remaining joints (offering reduced weight). This configuration creates a balance between power and agility that is well-suited for data collection tasks.
+First, I will evaluate the existing design files to identify opportunities for improvement and customization. The current Koch design uses Dynamixel servo motors, with XL430 motors for the first two joints (providing greater strength) and XL330 motors for the remaining joints (offering reduced weight). This configuration creates a balance between power and agility that is well-suited for data collection tasks.
 
-For the 3D printing aspects, I will optimize the design files to ensure they are printable on a wide range of consumer-grade 3D printers. This includes adjusting tolerances, adding support structures where necessary, and providing detailed printing parameters (temperature, infill percentage, layer height, etc.) to ensure consistent results across different printing setups. The parts will be designed to minimize the need for supports, reducing material waste and post-processing time.
+For the 3D printing aspects, I will try to optimize the design files to ensure they are printable on a wide range of consumer-grade 3D printers. This includes adjusting tolerances, adding support structures where necessary, and providing detailed printing parameters (temperature, infill percentage, layer height, etc.) to ensure consistent results across different printing setups. The parts will be designed to minimize the need for supports, reducing material waste and post-processing time.
 
 Component selection will be guided by the principle of affordability without compromising functionality. The bill of materials will include:
 - Dynamixel servo motors (or compatible alternatives if more cost-effective options are identified)
