@@ -1,6 +1,16 @@
 # Google Summer of Code 2025 Proposal
 # Performance and Scale Study for Kro (Kube Resource Orchestrator)
 
+<style>
+@page {
+  @bottom-right {
+    content: counter(page);
+    font-family: Arial, sans-serif;
+    font-size: 10pt;
+  }
+}
+</style>
+
 ## Table of Contents
 1. [Personal Information](#personal-information)
 2. [Project Abstract](#project-abstract)
@@ -18,8 +28,11 @@
 - **Email:** moneymindedmunish1@gmail.com
 - **GitHub:** https://github.com/MunishMummadi
 - **LinkedIn:** https://www.linkedin.com/in/munishmummadi/
+- **Portfolio:** https://www.munishdev.fun/
 - **University:** Saint Louis University
 - **Degree:** Masters in Computer Information Science (Expected May 2025)
+- **Time Zone:** CDT (Central Daylight Time)
+- **Availability:** Full-time commitment (40 hours/week) during the GSoC period.
 
 ## Project Abstract
 
@@ -41,13 +54,13 @@ As Kro matures and gains adoption, understanding its performance characteristics
 
 1. **Production Readiness**: Organizations need confidence in Kro's ability to handle production workloads at scale before widespread adoption.
 
-2. **Resource Planning**: Understanding resource consumption patterns helps users properly size their Kubernetes clusters and allocate appropriate resources to Kro components.
+2. **Resource Planning**: Understanding resource consumption patterns helps users properly size their Kubernetes clusters and allocate enough resources to Kro components.
 
-3. **Performance Bottlenecks**: Identifying performance bottlenecks early allows the project to address them before they impact users in production environments.
+3. **Performance Bottlenecks**: Identifying performance issues early allows the project to handle them before they impact users in production environments.
 
-4. **CEL Expression Evaluation**: Common Expression Language (CEL) is used extensively in Kro for resource definitions and validation. Understanding its performance characteristics is crucial for optimizing complex resource graphs.
+4. **CEL Expression Evaluation**: Common Expression Language (CEL) is used extensively in Kro for resource definitions and validation. Understanding its performance patterns is important for optimizing complex resource graphs.
 
-5. **Scaling Limits**: Determining the practical scaling limits of Kro helps set appropriate expectations and provides guidance for large-scale deployments.
+5. **Scaling Limits**: Calculating the practical scaling limits of Kro helps set expectations and provides guidance for large-scale deployments.
 
 Currently, Kro lacks comprehensive performance benchmarks and scaling studies. This project aims to fill that gap by designing and implementing a systematic approach to measuring, analyzing, and documenting Kro's performance characteristics.
 
@@ -545,7 +558,6 @@ graph TD
 ### 1. Benchmarking Framework Core
 
 ```go
-// pkg/benchmark/framework.go
 package benchmark
 
 import (
@@ -567,132 +579,13 @@ type BenchmarkSuite struct {
 	
 	// Common configuration for all tests in the suite
 	Config      BenchmarkConfig
-}
-
-// BenchmarkTest represents a single benchmark test
-type BenchmarkTest struct {
-	Name        string
-	Description string
-	Setup       func(context.Context) error
-	Run         func(context.Context) error
-	Teardown    func(context.Context) error
 	
-	// Test-specific configuration
-	Config      BenchmarkConfig
-}
-
-// BenchmarkConfig contains configuration for benchmark tests
-type BenchmarkConfig struct {
-	Iterations  int
-	Concurrency int
-	Timeout     time.Duration
-	
-	// Kubernetes client configuration
-	KubeClient  *kubernetes.Clientset
-	
-	// Kro-specific configuration
-	KroNamespace string
-}
-
-// BenchmarkResult contains the results of a benchmark test
-type BenchmarkResult struct {
-	TestName    string
-	StartTime   time.Time
-	EndTime     time.Time
-	Duration    time.Duration
-	Success     bool
-	Error       error
-	
-	// Metrics collected during the test
-	CPUUsage    float64
-	MemoryUsage float64
-	APIRequests int
-	
-	// Test-specific metrics
-	Metrics     map[string]float64
-}
-
-// NewBenchmarkSuite creates a new benchmark suite
-func NewBenchmarkSuite(name, description string, config BenchmarkConfig) *BenchmarkSuite {
-	return &BenchmarkSuite{
-		Name:        name,
-		Description: description,
-		Config:      config,
-		Tests:       make([]*BenchmarkTest, 0),
-	}
-}
-
-// AddTest adds a test to the benchmark suite
-func (s *BenchmarkSuite) AddTest(test *BenchmarkTest) {
-	s.Tests = append(s.Tests, test)
-}
-
-// Run executes all tests in the benchmark suite
-func (s *BenchmarkSuite) Run(ctx context.Context) ([]BenchmarkResult, error) {
-	results := make([]BenchmarkResult, 0, len(s.Tests))
-	
-	for _, test := range s.Tests {
-		// Merge suite config with test config
-		config := s.Config
-		if test.Config.Iterations > 0 {
-			config.Iterations = test.Config.Iterations
-		}
-		if test.Config.Concurrency > 0 {
-			config.Concurrency = test.Config.Concurrency
-		}
-		if test.Config.Timeout > 0 {
-			config.Timeout = test.Config.Timeout
-		}
-		
-		// Create context with timeout
-		testCtx, cancel := context.WithTimeout(ctx, config.Timeout)
-		defer cancel()
-		
-		// Setup test
-		if err := test.Setup(testCtx); err != nil {
-			return results, fmt.Errorf("failed to setup test %s: %w", test.Name, err)
-		}
-		
-		// Run test
-		result := BenchmarkResult{
-			TestName:  test.Name,
-			StartTime: time.Now(),
-			Metrics:   make(map[string]float64),
-		}
-		
-		// Start metrics collection
-		metricsCollector := NewMetricsCollector(config)
-		metricsCollector.Start(testCtx)
-		
-		// Run the test
-		err := test.Run(testCtx)
-		result.EndTime = time.Now()
-		result.Duration = result.EndTime.Sub(result.StartTime)
-		result.Success = err == nil
-		result.Error = err
-		
-		// Stop metrics collection and gather metrics
-		metrics := metricsCollector.Stop()
-		result.CPUUsage = metrics.CPUUsage
-		result.MemoryUsage = metrics.MemoryUsage
-		result.APIRequests = metrics.APIRequests
-		
-		// Teardown test
-		if teardownErr := test.Teardown(testCtx); teardownErr != nil {
-			fmt.Printf("Warning: failed to teardown test %s: %v\n", test.Name, teardownErr)
-		}
-		
-		results = append(results, result)
-	}
-	
-	return results, nil
-}
+	// ... (rest of the code remains the same)
 ```
 
 ### 2. CEL Expression Test Suite
 
 ```go
-// pkg/analysis/cel_test_suite.go
 package analysis
 
 import (
@@ -884,7 +777,6 @@ func GenerateStandardTestSuite() *CELTestSuite {
 ### 3. ResourceGraphDefinition Generator for Scale Testing
 
 ```go
-// pkg/scale/generator.go
 package scale
 
 import (
@@ -1070,7 +962,6 @@ func (g *RGDGenerator) generateResource(index, numProperties, numDependencies in
 ### 4. Automated Report Generation
 
 ```python
-# pkg/analysis/report_generator.py
 import json
 import os
 import matplotlib.pyplot as plt
