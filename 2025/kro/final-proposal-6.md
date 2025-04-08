@@ -37,9 +37,11 @@
 - **Time Zone:** CDT (Central Daylight Time)
 - **Availability:** Full-time commitment (40 hours/week) during the GSoC period.
 
+Note: Markdown version of this proposal is at : https://github.com/MunishMummadi/gsoc/blob/main/2025/kro/final-proposal-6.md
+
 ## Project Abstract
 
-This project aims to develop an innovative tool that leverages Artificial Intelligence (AI), specifically Large Language Models (LLMs) or Generative AI, to convert existing Helm charts into Kro's Resource Group Definitions (RGDs). Helm is the de facto package manager for Kubernetes but its Turing-complete templating can lead to complexity. Kro RGDs offer a more structured, Kubernetes-native way to define resource groupings. This tool will bridge the gap by analyzing Helm chart structures, identifying common patterns mappable to RGDs, developing strategies using AI and rule-based systems to handle Helm's templating logic, and implementing robust validation mechanisms. Key components include a Go-based analysis engine, an LLM integration module, a rule-based converter, and a validation framework. The ultimate goal is to streamline the adoption of Kro by providing an automated pathway for migrating existing Kubernetes configurations defined in Helm.
+This project aims to develop an AI-powered tool that converts existing Helm charts into Kro's Resource Group Definitions (RGDs). Helm is the package manager for Kubernetes but its templating can lead to complexity. Kro RGDs offer a more structured, Kubernetes-native way to define resource groupings. This tool will bridge the gap by analyzing Helm chart structures, identifying common patterns mappable to RGDs, developing strategies using AI and rule-based systems to handle Helm's templating logic, and implementing robust validation mechanisms. Key components include a Go-based analysis engine, an LLM integration module, a rule-based converter, and a validation framework. The ultimate goal is to increase the adoption of Kro by providing an automated pathway for migrating existing Kubernetes configurations defined in Helm.
 
 ## Background and Motivation
 
@@ -263,7 +265,6 @@ import (
 	"strings"
 
 	"gopkg.in/yaml.v3"
-	// Kro API types
 )
 
 // HelmChart represents basic parsed chart info
@@ -271,7 +272,6 @@ type HelmChart struct {
 	Metadata ChartMetadata
 	Values   map[string]interface{}
 	Templates map[string]string // file path -> content
-	// TODO: Add more structured info like dependencies (requirements.yaml)
 }
 
 // ChartMetadata mirrors Chart.yaml structure
@@ -280,7 +280,6 @@ type ChartMetadata struct {
 	Name        string `yaml:"name"`
 	Version     string `yaml:"version"`
 	Description string `yaml:"description"`
-	// ... other fields like type, appVersion, dependencies
 }
 
 // ParseChart loads and parses a Helm chart from a given path
@@ -290,7 +289,6 @@ func ParseChart(chartPath string) (*HelmChart, error) {
 		Values:    make(map[string]interface{}),
 	}
 
-	// --- Parse Chart.yaml ---
 	chartYamlPath := filepath.Join(chartPath, "Chart.yaml")
 	chartData, err := os.ReadFile(chartYamlPath)
 	if err != nil {
@@ -300,49 +298,35 @@ func ParseChart(chartPath string) (*HelmChart, error) {
 		return nil, fmt.Errorf("failed to unmarshal Chart.yaml: %w", err)
 	}
 
-	// --- Parse values.yaml ---
 	valuesYamlPath := filepath.Join(chartPath, "values.yaml")
 	valuesData, err := os.ReadFile(valuesYamlPath)
-	// It's okay if values.yaml doesn't exist, but handle other read errors
 	if err == nil {
 		if err := yaml.Unmarshal(valuesData, &chart.Values); err != nil {
-			// Try to be lenient with potentially invalid user values? Or fail hard?
 			return nil, fmt.Errorf("failed to unmarshal values.yaml: %w", err)
 		}
 	} else if !os.IsNotExist(err) {
 		return nil, fmt.Errorf("failed to read values.yaml: %w", err)
 	}
 
-
-	// --- Load templates ---
 	templatesPath := filepath.Join(chartPath, "templates")
-	// Walk the templates directory recursively
 	err = filepath.Walk(templatesPath, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
-			return err // Propagate walk errors
+			return err
 		}
-		// Skip directories, process template files
 		if !info.IsDir() && (strings.HasSuffix(info.Name(), ".yaml") || strings.HasSuffix(info.Name(), ".yml") || strings.HasSuffix(info.Name(), ".tpl")) {
 			content, readErr := os.ReadFile(path)
 			if readErr != nil {
-				// Log warning, maybe skip? Or return error? Depends on desired strictness.
-				fmt.Printf("Warning: could not read template %s: %v\n", path, readErr)
-				return nil // Continue walking
+				return fmt.Errorf("could not read template %s: %w", path, readErr)
 			}
-			// Store relative path from chart root for consistency
 			relPath, _ := filepath.Rel(chartPath, path)
 			chart.Templates[relPath] = string(content)
 		}
 		return nil
 	})
 
-	if err != nil && !os.IsNotExist(err) { // Ignore error if templates dir doesn't exist
-         return nil, fmt.Errorf("failed while reading templates directory '%s': %w", templatesPath, err)
-    }
-
-	// TODO: Add parsing for requirements.yaml (dependencies) if needed for conversion logic
-	// TODO: Add more sophisticated template analysis (e.g., identifying includes, defines
-	// Need to verify whether do to template analysis here or in a separate analysis step
+	if err != nil && !os.IsNotExist(err) {
+		return nil, fmt.Errorf("failed while reading templates directory '%s': %w", templatesPath, err)
+	}
 
 	return chart, nil
 }
@@ -357,80 +341,34 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"net/http"
 	"strings"
-	"time"
-	// Kro API types
 )
 
 // LLMClient interacts with a generic LLM API for code translation
 type LLMClient struct {
 	APIKey     string
-	Endpoint   string // e.g., "[https://api.openai.com/v1/completions](https://www.google.com/search?q=https://api.openai.com/v1/completions)" or similar
-	Model      string // e.g., "gpt-4-turbo-preview"
+	Endpoint   string
+	Model      string
 	HTTPClient *http.Client
 }
 
 // TranslationRequest defines the structure for the LLM API call payload
-// This might need adjustment based on the specific LLM API (e.g., OpenAI Chat vs Completion)
 type TranslationRequest struct {
 	Model       string   `json:"model"`
-	Prompt      string   `json:"prompt"` // For completion models
-	// Messages    []ChatMessage `json:"messages"` // For chat models
+	Prompt      string   `json:"prompt"`
 	MaxTokens   int     `json:"max_tokens"`
 	Temperature float64 `json:"temperature"`
-	// TopP        float64 `json:"top_p,omitempty"`
-	StopSequences []string `json:"stop,omitempty"`
-	// ResponseFormat *ResponseFormat `json:"response_format,omitempty"` // If API supports JSON mode
 }
 
-// Following example is based on how Mistral API works. Need to validate for others!
-// Example for Chat model messages
-// type ChatMessage struct {
-//  Role    string `json:"role"` // "system", "user", "assistant"
-//  Content string `json:"content"`
-// }
-
-// type ResponseFormat struct {
-//  Type string `json:"type"` // e.g., "json_object"
-// }
-
-
 // TranslationResponse defines expected structure from LLM API
-// This also differs between APIs
 type TranslationResponse struct {
 	ID      string `json:"id"`
 	Choices []struct {
-		Text string `json:"text"` // For completion models
-		// Message ChatMessage `json:"message"` // For chat models
-		FinishReason string `json:"finish_reason"`
+		Text string `json:"text"`
 	} `json:"choices"`
-	Usage struct {
-		PromptTokens     int `json:"prompt_tokens"`
-		CompletionTokens int `json:"completion_tokens"`
-		TotalTokens      int `json:"total_tokens"`
-	} `json:"usage"`
-	Error *APIError `json:"error,omitempty"`
 }
-
-type APIError struct {
-	Message string `json:"message"`
-	Type    string `json:"type"`
-	Code    string `json:"code"`
-}
-
-
-// SuggestedRGDSnippet is the expected *structured* output we want the LLM to generate
-// within its text response (or directly if JSON mode is used).
-type SuggestedRGDSnippet struct {
-	RGDResources         []map[string]interface{} `json:"rgdResources"` // Use map for flexibility initially
-	RequiresManualReview bool                     `json:"requiresManualReview"`
-	ReviewReason         string                   `json:"reviewReason,omitempty"`
-	Error                string                   `json:"error,omitempty"` // If LLM itself indicates an error translating
-}
-
 
 // New creates a new LLMClient
 func New(apiKey, endpoint, model string) *LLMClient {
@@ -439,56 +377,24 @@ func New(apiKey, endpoint, model string) *LLMClient {
 		Endpoint: endpoint,
 		Model:    model,
 		HTTPClient: &http.Client{
-			Timeout: 90 * time.Second, // LLMs can take time
+			Timeout: 90 * time.Second,
 		},
 	}
 }
 
 // TranslateHelmToRGD sends a Helm template snippet and context prompt for translation
-func (c *LLMClient) TranslateHelmToRGD(ctx context.Context, helmSnippet, contextPrompt string) (*SuggestedRGDSnippet, error) {
-	// --- Construct the detailed prompt ---
-	// This is CRITICAL and requires careful engineering and iteration.
-	// Use a system prompt (for chat models) or prefix the main prompt (for completion models)
-	// to set the context, persona, and desired output format.
-	systemPrompt := `You are an expert Kubernetes and Kro assistant. Your task is to translate Helm Go template snippets into the equivalent Kro ResourceGraphDefinition (RGD) 'resources' array elements.
-Output ONLY the JSON object containing the translation, structured exactly as follows:
-{
-  "rgdResources": [ /* array of RGD resource objects as JSON */ ],
-  "requiresManualReview": boolean, // Set to true if unsure, ambiguous, or complex logic was encountered
-  "reviewReason": "string (optional explanation if requiresManualReview is true)",
-  "error": "string (optional description if translation failed)"
-}
-Do NOT include any explanatory text before or after the JSON object.`
-
-	userPrompt := fmt.Sprintf(`Translate the following Helm template snippet into Kro RGD 'resources' array elements.
-Context for the snippet (e.g., relevant .Values):
----
-%s
----
-
-Helm Snippet to Translate:
----
-%s
----
-
-Remember to output ONLY the JSON object as specified in the instructions.`, contextPrompt, helmSnippet)
-
-
-	// --- Prepare the API request (Example for OpenAI Completion API) ---
+func (c *LLMClient) TranslateHelmToRGD(ctx context.Context, helmSnippet, contextPrompt string) (*TranslationResponse, error) {
 	apiRequest := TranslationRequest{
 		Model:       c.Model,
-		Prompt:      systemPrompt + "\n\n" + userPrompt, // Combine prompts
-		MaxTokens:   2048, // Adjust as needed
-		Temperature: 0.1,  // Low temperature for more deterministic code-like generation
-		StopSequences: []string{"\n```"}, // Stop if it starts generating markdown code blocks etc.
-		// For JSON mode if supported: ResponseFormat: &ResponseFormat{Type: "json_object"},
+		Prompt:      contextPrompt + "\n\n" + helmSnippet,
+		MaxTokens:   2048,
+		Temperature: 0.1,
 	}
 	requestBody, err := json.Marshal(apiRequest)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal LLM request: %w", err)
 	}
 
-	// --- Make the HTTP request ---
 	req, err := http.NewRequestWithContext(ctx, "POST", c.Endpoint, bytes.NewBuffer(requestBody))
 	if err != nil {
 		return nil, fmt.Errorf("failed to create LLM request: %w", err)
@@ -503,55 +409,16 @@ Remember to output ONLY the JSON object as specified in the instructions.`, cont
 	}
 	defer resp.Body.Close()
 
-	// --- Parse the response ---
 	var apiResponse TranslationResponse
 	if err := json.NewDecoder(resp.Body).Decode(&apiResponse); err != nil {
-		// Try reading body as text for debugging non-JSON errors
-		bodyBytes, _ := io.ReadAll(resp.Body)
-		return nil, fmt.Errorf("failed to decode LLM JSON response (status: %s): %w\nResponse Body: %s", resp.Status, err, string(bodyBytes))
+		return nil, fmt.Errorf("failed to decode LLM JSON response: %w", err)
 	}
 
-	if apiResponse.Error != nil {
-		return nil, fmt.Errorf("LLM API error: [%s] %s", apiResponse.Error.Code, apiResponse.Error.Message)
-	}
-
-	if len(apiResponse.Choices) == 0 {
-		return nil, errors.New("LLM response contained no choices")
-	}
-
-	// --- Extract and parse the structured JSON from the response text ---
-	// This part is crucial and might need refinement based on how reliably the LLM adheres to the JSON-only instruction.
-	// If using JSON mode, this parsing might be simpler.
-	responseText := strings.TrimSpace(apiResponse.Choices[0].Text)
-
-	// Basic check if the response looks like JSON
-	if !(strings.HasPrefix(responseText, "{") && strings.HasSuffix(responseText, "}")) {
-		// Attempt to find JSON within the text if the LLM added extra verbiage
-		jsonStart := strings.Index(responseText, "{")
-		jsonEnd := strings.LastIndex(responseText, "}")
-		if jsonStart != -1 && jsonEnd != -1 && jsonEnd > jsonStart {
-			responseText = responseText[jsonStart : jsonEnd+1]
-		} else {
-			return nil, fmt.Errorf("LLM response did not contain expected JSON object format. Response text:\n%s", apiResponse.Choices[0].Text)
-		}
-	}
-
-	var suggestedSnippet SuggestedRGDSnippet
-	if err := json.Unmarshal([]byte(responseText), &suggestedSnippet); err != nil {
-		return nil, fmt.Errorf("failed to unmarshal suggested RGD snippet from LLM response JSON: %w\nCleaned Response Text:\n%s", err, responseText)
-	}
-
-	// Check if the LLM itself reported an error during translation
-	if suggestedSnippet.Error != "" {
-		return &suggestedSnippet, fmt.Errorf("LLM reported translation error: %s", suggestedSnippet.Error)
-	}
-
-	return &suggestedSnippet, nil
+	return &apiResponse, nil
 }
-
 ```
 
-## 8. Timeline and Deliverables
+## Timeline and Deliverables
 
 *(Note: The table format from the previous version is replaced with the requested hierarchical format below)*
 
@@ -724,8 +591,9 @@ I am highly motivated by this specific project because:
 
 1.  **Technical Challenge:** The intersection of Helm's complexity, RGD's structure, and the application of AI/LLMs for code translation is a fascinating and challenging problem space.
 2.  **Impactful Tool:** Creating a tool that directly helps users adopt Kro and manage Kubernetes configurations more effectively is a compelling goal.
-3.  **Skill Development:** This project provides an ideal opportunity to gain deep, practical experience with Helm internals, Kubernetes CRDs/controllers (via Kro), and applied AI/LLM techniques for developer tools – areas directly aligned with my career interests in cloud-native technologies.
-4.  **Open Source Contribution:** I am eager to contribute meaningfully to a relevant open-source project like Kro.
+3.  **Skill Development:** This project provides an ideal opportunity to gain deep, practical experience with Helm internals and Kubernetes CRD patterns (RGDs).
+4.  **Contribution to Open Source:** I am eager to contribute meaningfully to an innovative open-source project in the cloud-native space.
+5.  **Collaboration:** I look forward to collaborating with and learning from experienced mentors and developers in the Kro community.
 
 ### Commitment and Availability
 

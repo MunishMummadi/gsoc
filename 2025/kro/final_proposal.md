@@ -23,6 +23,8 @@
 9. [Personal Qualifications and Fit](#personal-qualifications-and-fit)
 10. [Conclusion](#conclusion)
 
+Note: Markdown version of this proposal is at : https://github.com/MunishMummadi/gsoc/blob/main/2025/kro/final_proposal.md
+
 ## Personal Information
 - **Name:** Munish Mummadi
 - **Email:** moneymindedmunish1@gmail.com
@@ -790,19 +792,13 @@ import (
 
 // RGDGenerator generates ResourceGraphDefinitions for scale testing
 type RGDGenerator struct {
-	// Configuration for generation
 	Config GeneratorConfig
-	
-	// Random number generator
 	rand *rand.Rand
 }
 
 // GeneratorConfig contains configuration for the RGD generator
 type GeneratorConfig struct {
-	// Prefix for generated names
 	NamePrefix string
-	
-	// Namespace for generated resources
 	Namespace string
 	
 	// Complexity levels for generation
