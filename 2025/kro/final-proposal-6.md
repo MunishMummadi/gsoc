@@ -218,16 +218,16 @@ This approach ensures the tool is discoverable by Kro users and maintained along
 
 ```mermaid
 graph TD
-    A[Helm Chart Input] --> B{Parse Chart (Go)};
-    B -- Chart Metadata & Templates --> C{Analyze Structure & Patterns (Go)};
-    C -- Simple Constructs --> D[Rule-Based Converter (Go)];
-    C -- Complex Templates --> E{LLM Interpretation Module (Go + API)};
-    D -- RGD Snippets --> F{Assemble RGD Manifest (Go)};
-    E -- Suggested RGD Snippets --> F;
-    F --> G{Validate RGD vs. Helm Output};
-    G -- Valid --> H[Generated RGD Output];
-    G -- Invalid/Flagged --> I[Output RGD with Warnings/Annotations];
-    E -- Untranslatable --> I;
+    A["Helm Chart Input"] --> B{"Parse Chart (Go)"}
+    B -- "Chart Metadata & Templates" --> C{"Analyze Structure & Patterns (Go)"}
+    C -- "Simple Constructs" --> D["Rule-Based Converter (Go)"]
+    C -- "Complex Templates" --> E{"LLM Interpretation Module (Go + API)"}
+    D -- "RGD Snippets" --> F{"Assemble RGD Manifest (Go)"}
+    E -- "Suggested RGD Snippets" --> F
+    F --> G{"Validate RGD vs. Helm Output"}
+    G -- "Valid" --> H["Generated RGD Output"]
+    G -- "Invalid/Flagged" --> I["Output RGD with Warnings/Annotations"]
+    E -- "Untranslatable" --> I
 ```
 
 ### Figure 2: LLM Interaction Visualization
@@ -249,7 +249,7 @@ sequenceDiagram
 
 ## Mock Code Implementations
 
-*(Illustrative - actual implementation will be more complex and include error handling, configuration, etc.)*
+*(Demo purpose only - actual impl will be more complex and include error handling, configuration, etc.)*
 
 ### Basic Helm Template Parser Snippet (`pkg/helmparser/parser.go`)
 
@@ -263,8 +263,7 @@ import (
 	"strings"
 
 	"gopkg.in/yaml.v3"
-	// Assuming Kro API types are available
-	// krov1alpha1 "[github.com/kro-run/kro/pkg/apis/kro/v1alpha1](https://www.google.com/search?q=https://github.com/kro-run/kro/pkg/apis/kro/v1alpha1)"
+	// Kro API types
 )
 
 // HelmChart represents basic parsed chart info
@@ -342,7 +341,8 @@ func ParseChart(chartPath string) (*HelmChart, error) {
     }
 
 	// TODO: Add parsing for requirements.yaml (dependencies) if needed for conversion logic
-	// TODO: Add more sophisticated template analysis (e.g., identifying includes, defines) here or in a separate analysis step
+	// TODO: Add more sophisticated template analysis (e.g., identifying includes, defines
+	// Need to verify whether do to template analysis here or in a separate analysis step
 
 	return chart, nil
 }
@@ -362,8 +362,7 @@ import (
 	"net/http"
 	"strings"
 	"time"
-	// Assuming Kro API types are available for structured response
-	// krov1alpha1 "[github.com/kro-run/kro/pkg/apis/kro/v1alpha1](https://www.google.com/search?q=https://github.com/kro-run/kro/pkg/apis/kro/v1alpha1)"
+	// Kro API types
 )
 
 // LLMClient interacts with a generic LLM API for code translation
@@ -387,6 +386,7 @@ type TranslationRequest struct {
 	// ResponseFormat *ResponseFormat `json:"response_format,omitempty"` // If API supports JSON mode
 }
 
+// Following example is based on how Mistral API works. Need to validate for others!
 // Example for Chat model messages
 // type ChatMessage struct {
 //  Role    string `json:"role"` // "system", "user", "assistant"
@@ -399,7 +399,7 @@ type TranslationRequest struct {
 
 
 // TranslationResponse defines expected structure from LLM API
-// This also varies significantly between APIs
+// This also differs between APIs
 type TranslationResponse struct {
 	ID      string `json:"id"`
 	Choices []struct {
@@ -551,70 +551,113 @@ Remember to output ONLY the JSON object as specified in the instructions.`, cont
 
 ```
 
-## Timeline and Deliverables
+## 8. Timeline and Deliverables
 
-### Project Timeline
+*(Note: The table format from the previous version is replaced with the requested hierarchical format below)*
 
-The project will be executed over the standard GSoC timeline (approx. 12 weeks), with work divided into logical phases. The timeline includes buffer time and allows for iterative refinement based on findings and mentor feedback.
+### 8.1 Project Timeline
 
-| Phase                                         | Weeks   | Key Activities                                                                                                                                                           | Key Deliverables                                                                                          |
-| :-------------------------------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------- |
-| **Community Bonding** | (Pre)   | Engage community (Slack, meetings), Deepen understanding (Kro, RGD, Helm), Refine plan & milestones with mentors, Setup environment, Draft detailed specs for Parser/Core. | Refined project plan, Initial specs for core components                                                   |
-| **1: Foundational Analysis & Patterns** | 1-3     | Study specs, Setup tooling (Go env, CI), Develop Helm parser (`pkg/helmparser`), Analyze chart corpus (common patterns, functions), Define initial rule-based mappings.   | Go Helm chart parser tool, Analysis report on patterns, Initial mapping rules document                    |
-| **2: Core Conversion & Basic AI Integration** | 4-6     | Build engine skeleton (`cmd/helm2rgd`, `pkg/converter`), Implement rule-based conversion, Research/Select LLM, Develop LLM client (`pkg/llmclient`), LLM PoC, Value merging. | Basic conversion tool skeleton, LLM client & PoC, Value handling logic, Rule-based conversion for basics |
-| **3: Advanced Conversion & Complexity** | 7-9     | Refine prompts (few-shot, structured output), Develop strategies for untranslatable logic (flagging/annotations), Enhance analysis tool for complex constructs detection. | Improved tool reliability, Complex pattern handling (AI/rules), Flagging mechanism for manual review      |
-| **4: Validation, Testing, Documentation** | 10-12   | Develop validation framework (`pkg/validator` - Helm vs RGD output compare), Implement unit/integration tests, Write user/dev/limitations docs, Final polish & submission. | Validation framework & tooling, Comprehensive test suite, User/Dev documentation, Final code submission     |
+The project will be executed over the standard GSoC timeline (approx. 12 weeks), with work divided into logical phases that build upon each other. The timeline includes buffer periods to account for unexpected challenges and allows for iterative refinement of deliverables.
 
-### Community Bonding Period (Pre-Coding)
+#### Community Bonding Period (Pre-Coding)
+**May 1 - May 26, 2025 (Approx.)**
 
-* **Weeks 1-2:** Engage with Kro mentors and community (Slack, meetings). Set up development environment, familiarize with Kro and Helm Go SDK codebases. Review existing Helm charts and RGD examples.
-* **Weeks 3-4:** Deepen understanding of Helm templating nuances and RGD schema. Refine project plan and milestones based on mentor feedback. Draft detailed specifications for the Helm parser and core conversion logic. Explore potential LLM APIs and client libraries.
+* **Week 1-2:**
+    * Engage with Kro mentors and community (Slack, meetings).
+    * Set up development environment, familiarize with Kro and Helm Go SDK codebases.
+    * Review existing Helm charts and RGD examples.
+    * Refine project plan and milestones based on mentor feedback.
+* **Week 3-4:**
+    * Deepen understanding of Helm templating nuances and RGD schema.
+    * Draft detailed specifications for the Helm parser and core conversion logic.
+    * Explore potential LLM APIs and client libraries.
 
-### Phase 1: Foundational Analysis & Pattern Identification (Weeks 1-3)
+#### Phase 1: Foundational Analysis & Pattern Identification
+**Weeks 1-3 (Approx. May 27 - June 16)**
 
-* Implement core Helm chart parser (`pkg/helmparser`).
-* Analyze diverse Helm charts, document common patterns and Helm functions used.
-* Define and implement initial set of rule-based mappings for simple constructs (`pkg/converter`).
-* Set up basic CI for linting and testing.
+* **Week 1:**
+    * Implement core Helm chart parser (`pkg/helmparser`).
+    * Begin analysis of diverse Helm charts.
+    * Set up basic CI for linting and testing.
+* **Week 2:**
+    * Continue chart analysis, document common patterns and Helm functions used.
+    * Define initial set of rule-based mappings for simple constructs.
+* **Week 3:**
+    * Implement initial rule-based mappings (`pkg/converter`).
+    * Finalize analysis report on patterns and mapping strategies.
+    * Prepare first milestone report/demo.
 
-### Phase 2: Core Conversion Engine & Basic AI Integration (Weeks 4-6)
+**Deliverable 1 (Approx. June 16):** Functional Helm chart parser tool, analysis report on common patterns, and initial rule-based mapping logic.
 
-* Build the main CLI application structure (`cmd/helm2rgd`).
-* Integrate parser and rule-based converter.
-* Implement value merging logic (`values.yaml`, `-f`, `--set`).
-* Develop the LLM client module (`pkg/llmclient`) and integrate with a chosen LLM API.
-* Create a Proof-of-Concept demonstrating LLM interpretation for a specific complex Helm pattern.
+#### Phase 2: Core Conversion Engine & Basic AI Integration
+**Weeks 4-6 (Approx. June 17 - July 7)**
 
-### Phase 3: Advanced Conversion & Handling Complexity (Weeks 7-9)
+* **Week 4:**
+    * Build the main CLI application structure (`cmd/helm2rgd`).
+    * Integrate parser and rule-based converter.
+    * Implement value merging logic (`values.yaml`, `-f`, `--set`).
+* **Week 5:**
+    * Develop the LLM client module (`pkg/llmclient`).
+    * Research and select LLM API/model.
+    * Integrate LLM client with the core engine.
+* **Week 6:**
+    * Create a Proof-of-Concept demonstrating LLM interpretation for a specific complex Helm pattern.
+    * Refine basic conversion tool skeleton.
+    * Prepare mid-term evaluation report/demo.
 
-* Iterate on LLM prompt engineering for better accuracy and structured output.
-* Implement the hybrid approach: classify template sections for rule vs. LLM processing.
-* Develop robust flagging/annotation mechanism for untranslatable or low-confidence sections.
-* Enhance the parser/analyzer to detect challenging Helm constructs.
-* Expand rule-based conversions for more patterns identified in Phase 1.
+**Deliverable 2 (Approx. July 7):** Basic conversion tool handling simple rules and value merging, with integrated LLM client and a PoC for AI-based interpretation.
 
-### Phase 4: Validation, Testing, and Documentation (Weeks 10-12)
+#### Mid-term Evaluation
+**Approx. July 8 - July 12**
 
-* Develop the validation framework (`pkg/validator`) comparing `helm template` and `kro render` outputs.
-* Implement comprehensive unit tests and integration tests using sample Helm charts.
-* Write detailed user documentation, developer guide, and limitations guide.
-* Refine code, address feedback, ensure tests pass, prepare final submission.
+* Review progress with mentors.
+* Adjust project plan if necessary based on PoC results and analysis findings.
+* Address any issues or concerns.
 
-### Mid-term Evaluation
+#### Phase 3: Advanced Conversion & Handling Complexity
+**Weeks 7-9 (Approx. July 13 - August 3)**
 
-*(Around Week 6-7)*
-* Present progress on parser, rule-based conversion, and initial LLM integration PoC.
-* Discuss findings from pattern analysis.
-* Review plan for handling complexity and validation with mentors.
-* Adjust timeline or priorities if necessary.
+* **Week 7:**
+    * Iterate on LLM prompt engineering for better accuracy and structured output (few-shot, JSON format).
+    * Implement the hybrid approach logic (classify sections for rule vs. LLM).
+* **Week 8:**
+    * Develop robust flagging/annotation mechanism for untranslatable or low-confidence sections.
+    * Enhance the parser/analyzer to detect challenging Helm constructs.
+* **Week 9:**
+    * Expand rule-based conversions for more patterns identified in Phase 1.
+    * Test and refine the complex pattern handling.
+    * Prepare third milestone report/demo.
 
-### Final Evaluation
+**Deliverable 3 (Approx. August 3):** Conversion tool with improved reliability, handling more complex patterns via AI/rules, and a clear mechanism for flagging sections requiring manual review.
 
-*(After Week 12)*
-* Submit final codebase including conversion tool, tests, and documentation.
-* Demonstrate the tool's capabilities on various Helm charts.
-* Present validation results and discuss limitations.
-* Complete GSoC final evaluation requirements.
+#### Phase 4: Validation, Testing, and Documentation
+**Weeks 10-12 (Approx. August 4 - August 25)**
+
+* **Week 10:**
+    * Develop the validation framework (`pkg/validator`) comparing `helm template` and `kro render` outputs.
+    * Implement core comparison logic (structural diff).
+    * Begin writing comprehensive unit tests.
+* **Week 11:**
+    * Develop integration tests using sample Helm charts.
+    * Write user documentation (README, usage guide, limitations).
+    * Write developer documentation (code structure, contributing).
+* **Week 12:**
+    * Finalize all documentation based on feedback.
+    * Complete testing and ensure CI passes.
+    * Buffer period for addressing any remaining issues.
+    * Final polishing of all deliverables.
+    * Submit final work.
+
+**Deliverable 4 (Approx. August 25):** Completed Helm-to-RGD conversion tool, validation framework, comprehensive test suite, and full user/developer documentation.
+
+#### Final Evaluation
+**Approx. August 26 - September 2**
+
+* Final review with mentors.
+* Submit final code and documentation.
+* Complete GSoC final evaluation.
+
+---
 
 ### Detailed Deliverables
 
@@ -623,9 +666,9 @@ The project will be executed over the standard GSoC timeline (approx. 12 weeks),
 3.  **LLM Integration Module:** A Go module (`pkg/llmclient`) for interacting with a configured LLM API, including prompt construction and response parsing for Helm template interpretation.
 4.  **Validation Suite:** Go module (`pkg/validator`) and potentially scripts to compare the Kubernetes manifests generated by the original Helm chart and the generated RGD.
 5.  **Documentation:**
-    * User Guide (Usage, flags, interpreting output/warnings)
-    * Developer Guide (Code structure, contribution guidelines)
-    * Limitations Document (Scope, known untranslatable patterns)
+    - User Guide (Usage, flags, interpreting output/warnings)
+    - Developer Guide (Code structure, contribution guidelines)
+    - Limitations Document (Scope, known untranslatable patterns)
 6.  **Test Suite:** Comprehensive unit and integration tests for the developed Go code.
 7.  **Regular Progress Reports:** Weekly updates and communication with mentors.
 
@@ -702,7 +745,7 @@ I believe clear and consistent communication is vital for successful open-source
 
 While I am relatively new to large-scale open-source contributions, I have:
 
-* Made contributions to the Servo web rendering engine (Rust) and dora-rs during internships/projects, gaining experience with pull requests, code reviews, and collaborative workflows on GitHub.
+* Made contributions to the Servo web rendering engine (Rust) and dora-rs for fun and to learn rust, python gaining experience with pull requests, Git workflows(rebase, merge conflicts, branching etc) code reviews, and collaborative workflows on GitHub.
 * Followed open-source best practices (documentation, testing) in my personal projects hosted on GitHub.
 
 I am enthusiastic about deepening my involvement in the open-source community through GSoC and becoming an active contributor to Kro.
